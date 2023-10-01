@@ -1,12 +1,12 @@
 # Xóa table
-DROP TABLE orders
+DROP TABLE user
 
 # Create Data
 INSERT INTO user(user_id, full_name, email, password) VALUES
 				(1, 'vulebaolong', 'vulebaolong@gmail.com', '123456');
 				
 
-CREATE TABLE user (
+CREATE TABLE users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     full_name VARCHAR(50),
     email VARCHAR(50),
@@ -30,7 +30,7 @@ CREATE TABLE food (
 
 CREATE TABLE orders (
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     food_id INT,
     FOREIGN KEY (food_id) REFERENCES food(food_id),
     amount INT,
@@ -47,7 +47,7 @@ CREATE TABLE sub_food (
 );
 CREATE TABLE rate_res (
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     res_id INT,
     FOREIGN KEY (res_id) REFERENCES restaurant(res_id),
     amount INT,
@@ -63,7 +63,7 @@ CREATE TABLE restaurant (
 
 CREATE TABLE like_res (
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
     res_id INT,
     FOREIGN KEY (res_id) REFERENCES restaurant(res_id),
     date_like DATETIME
@@ -91,9 +91,10 @@ ORDER BY order_count DESC
 LIMIT 1;
 
 # Tìm người dùng không hoạt động trong hệ thống (không đặt hàng, không like, không đánh giá nhà hàng)
-SELECT u.user_id, u.full_name, u.email
-FROM user u
-LEFT JOIN orders o ON u.user_id = o.user_id
-LEFT JOIN like_res lr ON u.user_id = lr.user_id
-LEFT JOIN rate_res rr ON u.user_id = rr.user_id
-WHERE o.user_id IS NULL AND lr.user_id IS NULL AND rr.user_id IS NULL;
+SELECT users.user_id, users.full_name, users.email
+FROM users
+LEFT JOIN orders ON users.user_id = orders.user_id
+LEFT JOIN like_res ON users.user_id = like_res.user_id
+LEFT JOIN rate_res ON users.user_id = rate_res.user_id
+WHERE orders.user_id IS NULL AND like_res.user_id IS NULL AND rate_res.user_id IS NULL;
+
