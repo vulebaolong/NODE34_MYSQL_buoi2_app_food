@@ -27,9 +27,9 @@ ORDER BY order_count DESC
 LIMIT 1;
 
 # Tìm người dùng không hoạt động trong hệ thống (không đặt hàng, không like, không đánh giá nhà hàng)
-SELECT users.user_id, users.full_name, users.email
-FROM users
-LEFT JOIN orders ON users.user_id = orders.user_id
-LEFT JOIN like_res ON users.user_id = like_res.user_id
-LEFT JOIN rate_res ON users.user_id = rate_res.user_id
+SELECT users.user_id, users.full_name, users.email  
+FROM users  
+LEFT JOIN orders ON users.user_id = orders.user_id  
+LEFT JOIN like_res ON users.user_id = like_res.user_id  
+LEFT JOIN rate_res ON users.user_id = rate_res.user_id  
 WHERE orders.user_id IS NULL AND like_res.user_id IS NULL AND rate_res.user_id IS NULL;
