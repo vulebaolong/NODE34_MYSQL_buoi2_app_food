@@ -1,7 +1,7 @@
 * 1 - Open docker
 * 2 - Open table plus
 * 3 - Create new a database in table plus
-* 4 - Right click Tables =>  import => From SQL dump.. => select file db_appfood.sql
+* 4 - Right click Tables =>  import => From SQL dump.. => select file **db_appfood.sql**
 * 5 - Copy and paste code from file app_food.sql to SQL query
 
 
